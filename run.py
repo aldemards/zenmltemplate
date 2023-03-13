@@ -72,6 +72,13 @@ from utils.report_generators import (
     get_result_and_write_report,
 )
 from utils.tracker_helper import LOCAL_MLFLOW_UI_PORT, get_tracker_name
+from zenml.integrations.mlflow.steps.mlflow_registry import (
+    MLFlowRegistryParameters,
+    mlflow_register_model_step,
+)
+from zenml.model_registries.base_model_registry import (
+    ModelRegistryModelMetadata,
+)
 
 # These global parameters should be the same across all workflow stages.
 RANDOM_STATE = 23
@@ -285,6 +292,16 @@ def main(
                     ignore_train_test_data_drift_failures=ignore_checks,
                     ignore_model_evaluation_failures=ignore_checks,
                     ignore_reference_model=ignore_checks,
+                )
+            ),
+            model_register = mlflow_register_model_step(
+                params=MLFlowRegistryParameters(
+                    name="my_model",
+                    description="My model description",
+                    metadata=ModelRegistryModelMetadata(
+                        random_state=RANDOM_STATE,
+                        max_depth=5,
+                    )
                 )
             ),
             model_deployer=model_deployer_step,

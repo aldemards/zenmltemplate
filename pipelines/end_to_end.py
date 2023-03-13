@@ -13,6 +13,10 @@
 #  permissions and limitations under the License.
 
 from zenml.pipelines import pipeline
+from zenml.integrations.mlflow.steps.mlflow_registry import (
+    MLFlowRegistryParameters,
+    mlflow_register_model_step,
+)
 
 
 @pipeline
@@ -29,6 +33,7 @@ def gitflow_end_to_end_pipeline(
     served_model_train_scorer,
     served_model_test_scorer,
     model_appraiser,
+    model_register,
     model_deployer,
 ):
     """Train and serve a new model if it performs better than the model
@@ -67,4 +72,5 @@ def gitflow_end_to_end_pipeline(
         model_evaluation_report=model_evaluation_report,
         train_test_model_evaluation_report=train_test_model_evaluation_report,
     )
+    model_register(model)
     model_deployer(deploy_decision=deploy_decision, model=model)

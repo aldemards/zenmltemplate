@@ -53,6 +53,7 @@ class SVCTrainerParams(BaseParameters):
 
 @step(
     experiment_tracker=get_tracker_name(),
+    enable_cache=False
 )
 def svc_trainer(
     params: SVCTrainerParams,
@@ -110,6 +111,7 @@ class DecisionTreeTrainerParams(BaseParameters):
 
 @step(
     experiment_tracker=get_tracker_name(),
+    enable_cache=False
 )
 def decision_tree_trainer(
     params: DecisionTreeTrainerParams,

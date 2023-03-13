@@ -15,7 +15,7 @@
 """Model appraisal steps used to analyze the model training and evaluation
 results, to generate human-readable reports, and to make a decision about
 serving the model."""
-
+import os
 import tempfile
 from typing import List, Optional, Tuple, Union
 from zenml.steps import BaseParameters, Output, step
@@ -134,11 +134,13 @@ def model_analysis(
         # serialize and save the suite result as an HTML file in the experiment
         # tracker
         with tempfile.NamedTemporaryFile(
-            mode="w", delete=True, suffix=".html", encoding="utf-8"
+            mode="w", delete=False, suffix=".html", encoding="utf-8"
         ) as f:
             suite_result.save_as_html(f)
-            with open(f.name, "r") as f:
-                suite_html = f.read()
+            tmpfile_name = f.name
+        with open(tmpfile_name, "r") as f:
+            suite_html = f.read()
+        os.remove(tmpfile_name)
         log_text(suite_html, f"{name}.html")
         passed_checks = suite_result.get_passed_checks()
         failed_checks = suite_result.get_not_passed_checks(
