@@ -1,5 +1,10 @@
 .venv*
-.github/**
-.scripts/**
-.stacks/**
-.requirements*
+envlnx/
+.git/
+.github/
+.scripts/
+.stacks/
+requirements
+.zen/
+model_train_results.md
+mlruns/
