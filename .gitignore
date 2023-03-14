@@ -105,6 +105,7 @@ celerybeat.pid
 .env
 .venv
 env/
+envlnx/
 venv/
 ENV/
 env.bak/
@@ -130,5 +131,6 @@ dmypy.json
 
 .zen
 mlruns
+model_train_results.md
 
 poetry.lock
