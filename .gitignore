@@ -130,5 +130,6 @@ dmypy.json
 
 .zen
 mlruns
+model_train_results.md
 
 poetry.lock
